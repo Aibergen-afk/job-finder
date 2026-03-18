@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -9,9 +9,17 @@ import JobList from "./components/JobList";
 import Footer from "./components/Footer";
 
 function App() {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(() => {
+    const savedJobs = localStorage.getItem("jobs");
+    return savedJobs ? JSON.parse(savedJobs) : [];
+  });
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  useEffect(() => {
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+  }, [jobs]);
 
   const addJob = (job) => {
     setJobs([...jobs, job]);
@@ -38,28 +46,28 @@ function App() {
   }, 0);
 
   return (
-  <div className="app">
-    <Header />
+    <div className="app">
+      <Header />
 
-    <div className="container">
-      <SearchBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
+      <div className="container">
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
 
-      <FilterPanel
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
+        <FilterPanel
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
 
-      <JobForm addJob={addJob} />
+        <JobForm addJob={addJob} />
 
-      <JobList jobs={filteredJobs} deleteJob={deleteJob} />
+        <JobList jobs={filteredJobs} deleteJob={deleteJob} />
 
-      <Footer totalJobs={totalJobs} itJobsCount={itJobsCount} />
+        <Footer totalJobs={totalJobs} itJobsCount={itJobsCount} />
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default App;

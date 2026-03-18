@@ -4,9 +4,11 @@ function JobCard({ job, deleteJob }) {
   return (
     <div className="job-card">
       <h3>{title}</h3>
-      <p><strong>Company:</strong> {company}</p>
-      <p><strong>Category:</strong> {category}</p>
-      <p><strong>Salary:</strong> {salary}</p>
+      <p>{company}</p>
+
+      <span className="badge">{category}</span>
+
+      <p className="salary">{salary}</p>
 
       <button onClick={() => deleteJob(id)}>Delete</button>
     </div>
