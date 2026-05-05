@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function JobCard({ job, deleteJob }) {
   const { id, title, company, category, salary } = job;
 
@@ -10,7 +12,10 @@ function JobCard({ job, deleteJob }) {
 
       <p className="salary">{salary}</p>
 
-      <button onClick={() => deleteJob(id)}>Delete</button>
+      <div className="job-card-actions">
+        <Link to={`/jobs/${id}`}>View Details</Link>
+        <button onClick={() => deleteJob(id)}>Delete</button>
+      </div>
     </div>
   );
 }
