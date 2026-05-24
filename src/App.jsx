@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { JobsProvider } from "./context/JobsContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -7,15 +8,16 @@ import "./App.css";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import JobsPage from "./pages/JobsPage";
-import JobDetailPage from "./pages/JobDetailPage";
-import EditJobPage from "./pages/EditJobPage";
-import AddJobPage from "./pages/AddJobPage";
-import AboutPage from "./pages/AboutPage";
-import StatsPage from "./pages/StatsPage";
-import LoginPage from "./pages/LoginPage";
-import NotFoundPage from "./pages/NotFoundPage";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const JobsPage = lazy(() => import("./pages/JobsPage"));
+const JobDetailPage = lazy(() => import("./pages/JobDetailPage"));
+const EditJobPage = lazy(() => import("./pages/EditJobPage"));
+const AddJobPage = lazy(() => import("./pages/AddJobPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const StatsPage = lazy(() => import("./pages/StatsPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
             <div className="app">
               <Header />
               <div className="container">
+                <Suspense fallback={<div className="spinner" style={{ margin: "60px auto" }} />}>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/login" element={<LoginPage />} />
@@ -59,6 +62,7 @@ function App() {
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
+                </Suspense>
               </div>
               <Footer />
             </div>
