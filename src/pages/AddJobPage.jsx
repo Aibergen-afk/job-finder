@@ -8,7 +8,7 @@ function AddJobPage() {
 
   const handleAddJob = async (job) => {
     await addJob(job);
-    navigate("/jobs");
+    setTimeout(() => navigate("/jobs"), 1500);
   };
 
   return (
