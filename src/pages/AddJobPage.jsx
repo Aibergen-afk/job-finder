@@ -8,6 +8,7 @@ function AddJobPage() {
 
   const handleAddJob = async (job) => {
     await addJob(job);
+    navigate("/jobs");
   };
 
   return (

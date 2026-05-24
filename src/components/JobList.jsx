@@ -1,7 +1,8 @@
+import { memo } from "react";
 import JobCard from "./JobCard";
 import { useJobs } from "../context/JobsContext";
 
-function JobList({ jobs, deleteJob }) {
+const JobList = memo(function JobList({ jobs, deleteJob }) {
   const { loading } = useJobs();
 
   return (
@@ -15,6 +16,6 @@ function JobList({ jobs, deleteJob }) {
         ))}
     </div>
   );
-}
+});
 
 export default JobList;
