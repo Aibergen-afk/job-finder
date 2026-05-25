@@ -11,7 +11,7 @@ export const createJob = (job) =>
   }).then((res) => res.json());
 
 export const updateJob = (id, job) =>
-  fetch(`${BASE_URL}/posts/${id}`, {
+  fetch(`${BASE_URL}/posts/1`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(job),
